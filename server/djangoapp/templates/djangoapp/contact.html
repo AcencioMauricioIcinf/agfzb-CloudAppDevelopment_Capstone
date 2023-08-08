@@ -10,9 +10,12 @@
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Online Course</a>
                 </div>
-                <div class="nav navbar-nav navbar-right">
-                    <a class="btn btn-link">About us</a>
-                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About us</a>
+                        <a class="btn btn-link" href="{% url 'djangoapp:contact' %}">Contact us</a>
+                    </li>
+                </ul>
             </div>
         </nav>
         <div class="container">
