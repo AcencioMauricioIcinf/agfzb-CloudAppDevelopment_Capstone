@@ -19,9 +19,12 @@
                 <div class="navbar-header">
                     <span class="navbar-brand" href="#">Online Course</span>
                 </div>
-                <div class="nav navbar-nav navbar-right">
-                    <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About us</a>
-                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About us</a>
+                        <a class="btn btn-link" href="{% url 'djangoapp:contact' %}">Contact us</a>
+                    </li>
+                </ul>
             </div>
         </nav>
 
