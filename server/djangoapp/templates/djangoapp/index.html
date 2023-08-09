@@ -18,12 +18,28 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <span class="navbar-brand" href="#">Online Course</span>
-                </div>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
                         <a class="btn btn-link" href="{% url 'djangoapp:about' %}">About us</a>
                         <a class="btn btn-link" href="{% url 'djangoapp:contact' %}">Contact us</a>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a class="btn btn-link" href="#">{{ user.first_name }}({{ user.username }})</a>
+                        <a class="btn btn-link">Logout</a>
                     </li>
+                    {% else %}
+                    <li>
+                        <form class="form-inline" method="post">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Username" name="username" >
+                                <input type="password" class="form-control" placeholder="Password" name="psw" >
+                                <button class="btn btn-primary" type="submit">Login</button>
+                                <a class="btn btn-link">Sign Up</a>
+                            </div>
+                        </form>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </nav>
