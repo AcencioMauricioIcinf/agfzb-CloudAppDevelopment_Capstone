@@ -100,14 +100,15 @@ def get_dealer_details(request, dealer_id):
 
 # Create a `add_review` view to submit a review
 def add_review(request, dealer_id):
-    if request.user.is_authenticated and request.method == 'GET':
+    if request.method == 'GET':
         payload = {}
-        payload['id'] = 124
-        payload["review"] = review
-        payload["time"] = datetime.utcnow().isoformat()
-        payload["dealership"] = dealer_id
-        payload["name"] = 'Mauro Fern'
-        payload["purchase"] = False
+        payload['review'] = {}
+        payload['review']['id'] = 124
+        payload['review']["review"] = "Good dealership"
+        payload['review']["time"] = datetime.utcnow().isoformat()
+        payload['review']["dealership"] = dealer_id
+        payload['review']["name"] = 'Mauro Fern'
+        payload['review']["purchase"] = False
 
         url = 'https://us-south.functions.appdomain.cloud/api/v1/web/fcc6f7b6-c4ad-4067-a0a1-0287f313fa64/dealership-package/post-review'
 
