@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render, redirect
 # from .models import related models
-from .restapis import get_dealers_from_cf, get_dealer_by_id_from_cf
+from .restapis import get_dealers_from_cf, get_dealer_by_id_from_cf, analyze_review_sentiments
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from datetime import datetime
@@ -90,9 +90,13 @@ def get_dealer_details(request, dealer_id):
         # Get dealers from the URL
         reviews = get_dealer_by_id_from_cf(url, dealer_id)
         # Concat all dealer's short name
-        reviews = ' '.join([review.review for review in reviews])
+        reviewstr = []
+        for review in reviews:
+            sentiment = analyze_review_sentiments(review.review)
+            print(sentiment)
+            reviewstr.append(f'{review.review}: {sentiment}')
         # Return a list of dealer short name
-        return HttpResponse(reviews)
+        return HttpResponse('\n'.join(reviewstr))
 
 # Create a `add_review` view to submit a review
 # def add_review(request, dealer_id):
