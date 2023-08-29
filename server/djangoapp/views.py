@@ -100,7 +100,7 @@ def get_dealer_details(request, dealer_id):
 
 # Create a `add_review` view to submit a review
 def add_review(request, dealer_id):
-    if request.user.is_authenticated and request.method == 'POST':
+    if request.user.is_authenticated and request.method == 'GET':
         payload = {}
         payload['id'] = 124
         payload["review"] = review
