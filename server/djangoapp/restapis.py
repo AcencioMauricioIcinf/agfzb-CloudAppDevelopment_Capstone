@@ -40,11 +40,11 @@ def post_request(url, json_payload, api_key=None, **kwargs):
         # Call get method of requests library with URL and parameters
         if api_key is None:
             response = requests.get(url, headers={'Content-Type': 'application/json'},
-                                    params=kwargs)
+                                    json=json_payload, params=kwargs)
         else:
             print(api_key)
             response = requests.get(url, headers={'Content-Type': 'application/json'},
-                                    params=kwargs, auth=HTTPBasicAuth('apikey', api_key))
+                                    json=json_payload, params=kwargs, auth=HTTPBasicAuth('apikey', api_key))
         status_code = response.status_code
         print("With status {} ".format(status_code))
         json_data = json.loads(response.text)
