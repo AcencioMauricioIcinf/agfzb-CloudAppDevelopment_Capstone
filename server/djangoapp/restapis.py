@@ -3,6 +3,7 @@ import json
 # import related models here
 from .models import CarDealer, DealerReview
 from requests.auth import HTTPBasicAuth
+from .nlu import analyze_text
 
 
 # Create a `get_request` to make HTTP GET requests
@@ -18,6 +19,7 @@ def get_request(url, api_key=None, **kwargs):
             response = requests.get(url, headers={'Content-Type': 'application/json'},
                                     params=kwargs)
         else:
+            print(api_key)
             response = requests.get(url, headers={'Content-Type': 'application/json'},
                                     params=kwargs, auth=HTTPBasicAuth('apikey', api_key))
         status_code = response.status_code
@@ -87,6 +89,9 @@ def get_dealer_by_id_from_cf(url, dealer_id):
 # def analyze_review_sentiments(text):
 # - Call get_request() with specified arguments
 # - Get the returned sentiment label such as Positive or Negative
-
+def analyze_review_sentiments(review):
+    result = analyze_text(review)
+    return result['entities'][0]['sentiment']['label']
+    
 
 
