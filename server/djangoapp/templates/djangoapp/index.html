@@ -45,15 +45,15 @@
 
     <!--Add a dealer table here -->
         <div class="container">
-            <table class="table" id="table">
+            <table class="table" id="table" data-filter-control="true">
                 <thead>
                     <tr>
                         <th data-field="id">ID</th>
-                        <th data-field="id">Dealership</th>
-                        <th data-field="id">City</th>
-                        <th data-field="id">Address</th>
-                        <th data-field="id">Zip</th>
-                        <th data-field="id">State</th>
+                        <th data-field="dealer">Dealership</th>
+                        <th data-field="city">City</th>
+                        <th data-field="address">Address</th>
+                        <th data-field="zip">Zip</th>
+                        <th data-field="state" data-filter-control="select">State</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,4 +75,9 @@
             </table>
         </div>
     </body>
+    <script>
+        $(function() {
+          $('#table').bootstrapTable()
+        })
+    </script>
 </html>
