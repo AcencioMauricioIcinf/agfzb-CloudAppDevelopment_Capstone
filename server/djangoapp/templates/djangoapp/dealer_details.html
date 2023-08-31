@@ -41,15 +41,33 @@
 
     <!-- Add reviews as cards -->
         <div class="container">
+            {% if reviews %}
             <div class="card-columns">
+                {% for review in reviews %}
                 <div class="card" style="width: 18rem;">
-                    <img class="card-img-left" src="{{MEDIA_URL}}/emoji/positive.png">
+                    {% if review.sentiment == 'positive' %}
+                    <img class="card-img-left" width="40px" src="{{MEDIA_URL}}/emoji/positive.png">
                     </img>
+                    {% elif review.sentiment == 'negative' %}
+                    <img class="card-img-left" width="40px" src="{{MEDIA_URL}}/emoji/negative.png">
+                    </img>
+                    {% else %}
+                    <img class="card-img-left" width="40px" src="{{MEDIA_URL}}/emoji/neutral.png">
+                    </img>
+                    {% endif %}
                     <div class="card-body">
-
+                        <h5 class="card-title">{{ review.name }} said:</h5>
+                        <p class="card-text">{{ review.review }}</p>
+                        {% if review.purchase %}
+                        <p class="card-text">Bought: {{ review.car_year }} {{ review.car_make }} {{ review.car_model }}</p>
+                        {% endif %}
                     </div>
                 </div>
+                {% endfor %}
             </div>
+            {% else %}
+            <h5>No reviews for this dealership right now. Be the first to write one!</h5>
+            {% endif %}
         </div>
     </body>
 
