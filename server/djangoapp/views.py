@@ -91,7 +91,7 @@ def get_dealer_details(request, dealer_id):
         # Get dealers from the URL
         reviews = get_dealer_by_id_from_cf(url, dealer_id)
         context = { 'dealer_id': dealer_id }
-        for i in len(reviews):
+        for i in range(len(reviews)):
             sentiment = analyze_review_sentiments(reviews[i].review)
             reviews[i].sentiment = sentiment
         context['reviews'] = reviews
