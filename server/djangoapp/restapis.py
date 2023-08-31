@@ -99,7 +99,7 @@ def get_dealer_by_id_from_cf(url, dealer_id):
                 review.get('car_model'),
                 review.get('car_year'),
                 '',
-                review['id'],
+                review.get('id'),
             )
             results.append(review_obj)
     return results
@@ -110,7 +110,11 @@ def get_dealer_by_id_from_cf(url, dealer_id):
 # - Get the returned sentiment label such as Positive or Negative
 def analyze_review_sentiments(review):
     result = analyze_text(review)
-    return result['entities'][0]['sentiment']['label']
+    print(result)
+    if len(result['entities']) == 0:
+        return 'neutral'
+    else:
+        return result['entities'][0]['sentiment']['label']
     
 
 
