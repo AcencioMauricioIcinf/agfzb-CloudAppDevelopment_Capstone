@@ -90,14 +90,12 @@ def get_dealer_details(request, dealer_id):
         url = "https://us-south.functions.appdomain.cloud/api/v1/web/fcc6f7b6-c4ad-4067-a0a1-0287f313fa64/dealership-package/get-review"
         # Get dealers from the URL
         reviews = get_dealer_by_id_from_cf(url, dealer_id)
-        # Concat all dealer's short name
-        reviewstr = []
-        for review in reviews:
-            sentiment = analyze_review_sentiments(review.review)
-            print(sentiment)
-            reviewstr.append(f'{review.review}: {sentiment}')
-        # Return a list of dealer short name
-        return HttpResponse('\n'.join(reviewstr))
+        context = { 'dealer_id': dealer_id }
+        for i in len(reviews):
+            sentiment = analyze_review_sentiments(reviews[i].review)
+            reviews[i].sentiment = sentiment
+        context['reviews'] = reviews
+        return render(request, 'djangoapp/dealer_details.html', context)
 
 # Create a `add_review` view to submit a review
 def add_review(request, dealer_id):
