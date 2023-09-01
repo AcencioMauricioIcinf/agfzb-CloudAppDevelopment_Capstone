@@ -109,15 +109,19 @@ def add_review(request, dealer_id):
         payload['review']["review"] = request.POST["review"]
         payload['review']["dealership"] = dealer_id
         payload['review']["time"] = datetime.utcnow().isoformat()
-        payload['review']["name"] = request.user.first_name + ' ' + request.user.last_name
-        payload['review']["purchase"] = request.POST.get("purchasecheck")
-        if request.POST["purchasecheck"]:
+        name = request.user.first_name + ' ' + request.user.last_name
+        payload['review']["name"] = name if name.strip() else request.user.username
+        payload['review']["purchase"] = bool(request.POST.get("purchasecheck"))
+        if request.POST.get("purchasecheck"):
             payload['review']["purchase_date"] = request.POST["purchasedate"]
-            make, model, year = request.POST["car"].split(' - ')
-            payload['review']["car_make"] = make
-            payload['review']["car_model"] = model
-            payload['review']["year"] = year
-
+            car_id = request.POST["car"]
+            car_obj = CarModel.objects.get(pk=car_id)
+            payload['review']["car_make"] = car_obj.car_make.name
+            payload['review']["car_model"] = car_obj.name
+            payload['review']["year"] = car_obj.year.isoformat()
+        
+        print(json.dumps(payload['review'], indent=2))
+        return redirect("djangoapp:dealer_details", dealer_id=dealer_id)
         url = 'https://us-south.functions.appdomain.cloud/api/v1/web/fcc6f7b6-c4ad-4067-a0a1-0287f313fa64/dealership-package/post-review'
 
         result = post_request(url, payload)
