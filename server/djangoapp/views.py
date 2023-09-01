@@ -121,8 +121,6 @@ def add_review(request, dealer_id):
             payload['review']["year"] = car_obj.year.isoformat()
         
         print(json.dumps(payload['review'], indent=2))
-        return redirect("djangoapp:dealer_details", dealer_id=dealer_id)
         url = 'https://us-south.functions.appdomain.cloud/api/v1/web/fcc6f7b6-c4ad-4067-a0a1-0287f313fa64/dealership-package/post-review'
-
-        result = post_request(url, payload)
-        return HttpResponse(result)        
+        post_request(url=url, json_payload=payload)
+        return redirect("djangoapp:dealer_details", dealer_id=dealer_id)        
