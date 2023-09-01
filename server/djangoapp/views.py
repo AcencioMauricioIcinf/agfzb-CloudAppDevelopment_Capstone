@@ -108,9 +108,9 @@ def add_review(request, dealer_id):
         payload['review'] = {}
         payload['review']["review"] = request.POST["review"]
         payload['review']["dealership"] = dealer_id
-        payload['review']["time"] = datetime.utcnow.isoformat()
+        payload['review']["time"] = datetime.utcnow().isoformat()
         payload['review']["name"] = request.user.first_name + ' ' + request.user.last_name
-        payload['review']["purchase"] = request.POST["purchasecheck"]
+        payload['review']["purchase"] = request.POST.get("purchasecheck")
         if request.POST["purchasecheck"]:
             payload['review']["purchase_date"] = request.POST["purchasedate"]
             make, model, year = request.POST["car"].split(' - ')
