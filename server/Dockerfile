@@ -2,6 +2,9 @@
 
     ENV PYTHONBUFFERED 1
     ENV PYTHONWRITEBYTECODE 1
+    ENV DJANGO_SUPERUSER_USERNAME=root
+    ENV DJANGO_SUPERUSER_EMAIL=root@example.com
+    ENV DJANGO_SUPERUSER_PASSWORD=root
 
     RUN apt-get update \
         && apt-get install -y netcat
